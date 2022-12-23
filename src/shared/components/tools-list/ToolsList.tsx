@@ -45,7 +45,7 @@ export const ToolsList: React.FC<IToolsListProps> = ({
           </Box>
         </>
       )}
-      {!showSearchInput && showBackListQuestions && (
+      {/* {!showSearchInput && showBackListQuestions && (
         <Box flex={1} display="flex" justifyContent="start">
           <Button
             variant="contained"
@@ -56,7 +56,7 @@ export const ToolsList: React.FC<IToolsListProps> = ({
             Back to List
           </Button>
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };

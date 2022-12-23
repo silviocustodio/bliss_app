@@ -1,12 +1,13 @@
 import React from 'react';
-import { ToolsList } from '../../shared/components';
+import { ToolsDetails } from '../../shared/components/tools-details/ToolsDetails';
 import { BaseLayoutPage } from '../../shared/layout';
 
 export const Dashboard = () => {
   return (
     <BaseLayoutPage
       title="Home"
-      navBar={<ToolsList showSearchInput={false} showBackListQuestions />}
+      //   navBar={<ToolsList showSearchInput={false} showBackListQuestions />}
+      navBar={<ToolsDetails />}
     >
       test
     </BaseLayoutPage>
