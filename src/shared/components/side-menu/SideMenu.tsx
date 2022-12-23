@@ -1,6 +1,6 @@
 import { Box, width } from '@mui/system';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useDrawerContext } from '../../contexts';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 import {
   Avatar,
@@ -23,6 +23,7 @@ export const SideMenu: React.FC<ISideMenuProps> = ({ children }) => {
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+  const { toggleTheme } = useAppThemeContext();
 
   interface IListItemLinkProps {
     to: string;
@@ -100,18 +101,16 @@ export const SideMenu: React.FC<ISideMenuProps> = ({ children }) => {
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}
-              {/* <ListItemLink
-                icon="home"
-                to="/home"
-                label="Home page"
-                onClick={smDown ? toggleDrawerOpen : undefined}
-              />
-              <ListItemLink
-                icon="quiz"
-                to="/questions"
-                label="Questions"
-                onClick={smDown ? toggleDrawerOpen : undefined}
-              /> */}
+            </List>
+          </Box>
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>dark_mode</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Switch theme" />
+              </ListItemButton>
             </List>
           </Box>
         </Box>
