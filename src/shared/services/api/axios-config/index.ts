@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { responseInterceptor, errorInterceptor } from './interceptors';
 
+import { Environment } from '../../../environment/index';
+
 const Api = axios.create({
-  baseURL: 'https://private-bbbe9-blissrecruitmentapi.apiary-mock.com',
+  baseURL: Environment.BASE_URL,
 });
 
 Api.interceptors.response.use(

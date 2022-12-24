@@ -23,8 +23,8 @@ interface IToolsDetailsProps {
 export const ToolsDetails: React.FC<IToolsDetailsProps> = ({
   textDismissButton = 'Dismiss',
   textBackToListButton = 'Back to List',
-  showTextDismissButton = true,
-  showBackToListButton = true,
+  showTextDismissButton = false,
+  showBackToListButton = false,
   showTextDismissButtonLoading = false,
 
   onClickInDismiss,
