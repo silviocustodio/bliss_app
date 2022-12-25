@@ -1,7 +1,7 @@
 import { Environment } from './../../../environment/index';
 import { Api } from '../axios-config';
 
-interface IListQuestion {
+export interface IListQuestion {
   id: number;
   question: string;
   image_url: string;
@@ -9,7 +9,7 @@ interface IListQuestion {
   published_at: string;
   choices: IListChoiceQuestion[];
 }
-interface IListChoiceQuestion {
+export interface IListChoiceQuestion {
   choice: string;
   votes: number;
 }
@@ -17,19 +17,24 @@ type TListQuestion = {
   data: IListQuestion[];
   totalCount: number;
 };
+type TListDetailsQuestion = {
+  data: IListQuestion;
+};
 
 const getAll = async (
-  offset = 1,
+  offset = 10,
   filter = ''
 ): Promise<TListQuestion | Error> => {
   try {
-    const relativeURL = `/questions?limit=${Environment.LINE_LIMIT}&offset=${offset}&filter=${filter}`;
+    const relativeURL = `/questions?limit=${Environment.LIMIT_REQUEST}&offset=${offset}&filter=${filter}`;
     const { data, headers } = await Api.get(relativeURL);
 
     if (data) {
       return {
         data,
-        totalCount: Number(headers['x-total-count'] || Environment.LINE_LIMIT),
+        totalCount: Number(
+          headers['x-total-count'] || Environment.LIMIT_REQUEST
+        ),
       };
     }
     return new Error('Error getting questions');
@@ -40,12 +45,14 @@ const getAll = async (
     );
   }
 };
-const getById = async (id: number): Promise<IListChoiceQuestion | Error> => {
+const getById = async (id: number): Promise<TListDetailsQuestion | Error> => {
   try {
     const { data } = await Api.get(`/questions/${id}`);
 
     if (data) {
-      return data;
+      return {
+        data,
+      };
     }
     return new Error('Error getting question');
   } catch (error) {

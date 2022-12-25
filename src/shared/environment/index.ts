@@ -3,6 +3,10 @@ export const Environment = {
    * Define limit of lines to be loading by default in the list
    */
   LINE_LIMIT: 10,
+  /**
+   * Define limit of question requested
+   */
+  LIMIT_REQUEST: 10,
 
   /**
    * Define the search text by default

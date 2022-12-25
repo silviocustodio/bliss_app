@@ -6,6 +6,7 @@ interface IToolsListProps {
   showSearchInput?: boolean;
   showBackListQuestions?: boolean;
   changeSearchText?: (newText: string) => void;
+  onClickInDetails?: () => void;
 }
 
 export const ToolsList: React.FC<IToolsListProps> = ({
@@ -13,6 +14,7 @@ export const ToolsList: React.FC<IToolsListProps> = ({
   showSearchInput = false,
   showBackListQuestions = false,
   changeSearchText,
+  onClickInDetails,
 }) => {
   const theme = useTheme();
   return (

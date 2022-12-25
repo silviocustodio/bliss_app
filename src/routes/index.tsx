@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, QuestionList } from '../pages';
+import { Dashboard, QuestionList, QuestionDetails } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 export const AppRoutes = () => {
@@ -18,6 +18,11 @@ export const AppRoutes = () => {
         icon: 'quiz',
         path: '/questions',
       },
+      // {
+      //   label: 'Questions Details',
+      //   icon: 'quiz',
+      //   path: '/questions/details:id',
+      // },
     ]);
   }, []);
 
@@ -25,6 +30,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="/home" element={<Dashboard />} />
       <Route path="/questions" element={<QuestionList />} />
+      <Route path="/questions/details/:id" element={<QuestionDetails />} />
       <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   );
