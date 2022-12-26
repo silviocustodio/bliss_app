@@ -114,6 +114,10 @@ export const QuestionDetails: React.FC = () => {
                   {' '}
                   Published at {choice?.published_at}
                 </TableCell>
+                {/* <TableCell colSpan={3}>
+                  {' '}
+                  Published at {choice?.published_at}
+                </TableCell> */}
               </TableRow>
             </TableFooter>
           </Table>

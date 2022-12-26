@@ -119,7 +119,42 @@ const getHealth = async (): Promise<TCheckStatusServer | Error> => {
     );
   }
 };
-//updating the question votes with the answer that the user clicked
+
+const share = async (
+  email: string,
+  offset = 10,
+  search: string
+): Promise<any | Error> => {
+  try {
+    if (search) {
+      const { data } = await Api.get(
+        `/share?destination_email=${email}&content_url=http://localhost:3000/questions?${search}&limit=10&offset=${offset}`
+      );
+
+      if (data) {
+        return {
+          data,
+        };
+      }
+    } else {
+      const { data } = await Api.get(
+        `/share?destination_email=${email}&content_url=http://localhost:3000/questions?limit=10&offset=${offset}`
+      );
+
+      if (data) {
+        return {
+          data,
+        };
+      }
+    }
+    return new Error('Error getting status server');
+  } catch (error) {
+    console.error(error);
+    return new Error(
+      (error as { message: string }).message || 'Error getting status server'
+    );
+  }
+}; //updating the question votes with the answer that the user clicked
 const updateVote = async (
   id: number,
   dataQuestion: IListQuestion

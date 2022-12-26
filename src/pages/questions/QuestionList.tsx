@@ -93,6 +93,7 @@ export const QuestionList: React.FC = () => {
           changeSearchText={(text) =>
             setSearchParams({ search: text, page: '1' }, { replace: true })
           }
+          changeSearchTextToEmpty={() => setSearchParams({ search: '' })}
         />
       }
     >

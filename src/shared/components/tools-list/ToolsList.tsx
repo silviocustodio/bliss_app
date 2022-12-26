@@ -1,4 +1,5 @@
 import { Paper, Box, Button, TextField, useTheme, Icon } from '@mui/material';
+import { useState } from 'react';
 import { Environment } from '../../environment';
 
 interface IToolsListProps {
@@ -6,17 +7,21 @@ interface IToolsListProps {
   showSearchInput?: boolean;
   showBackListQuestions?: boolean;
   changeSearchText?: (newText: string) => void;
+  changeSearchTextToEmpty?: (newText: string) => void;
   onClickInDetails?: () => void;
 }
 
+// const [input, setInput] = useState('');
 export const ToolsList: React.FC<IToolsListProps> = ({
   searchText = '',
   showSearchInput = false,
   showBackListQuestions = false,
   changeSearchText,
+  changeSearchTextToEmpty,
   onClickInDetails,
 }) => {
   const theme = useTheme();
+
   return (
     <Box
       height={theme.spacing(5)}
@@ -36,16 +41,20 @@ export const ToolsList: React.FC<IToolsListProps> = ({
             value={searchText}
             onChange={(e) => changeSearchText?.(e.target.value)}
           />
-          <Box flex={1} display="flex" justifyContent="start">
-            <Button
-              variant="contained"
-              color="primary"
-              disableElevation
-              startIcon={<Icon>close-rounded</Icon>}
-            >
-              Dismiss
-            </Button>
-          </Box>
+
+          {searchText.length > 0 && (
+            <Box flex={1} display="flex" justifyContent="start">
+              <Button
+                variant="contained"
+                color="primary"
+                disableElevation
+                startIcon={<Icon>close-rounded</Icon>}
+                onClick={() => changeSearchTextToEmpty?.('')}
+              >
+                Dismiss
+              </Button>
+            </Box>
+          )}
         </>
       )}
       {/* {!showSearchInput && showBackListQuestions && (
