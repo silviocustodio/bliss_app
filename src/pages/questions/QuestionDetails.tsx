@@ -1,19 +1,23 @@
 import { ChatBubbleOutlineSharp } from '@mui/icons-material';
 import {
+  Button,
   Icon,
   IconButton,
+  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToolsDetails } from '../../shared/components';
+import { CheckServerContext } from '../../shared/contexts';
 import { useDebounce } from '../../shared/hooks';
 import { BaseLayoutPage } from '../../shared/layout';
 import {
@@ -28,6 +32,8 @@ export const QuestionDetails: React.FC = () => {
   const { debounce } = useDebounce(3000, true);
   const [isLoading, setIsLoading] = useState(true);
   const [choice, setChoice] = useState<IListQuestion>();
+
+  const statusServerContext = useContext(CheckServerContext);
 
   //   const handleDetails = (id: number) => {
   //     console.log();
@@ -76,8 +82,8 @@ export const QuestionDetails: React.FC = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>choice</TableCell>
-                <TableCell>votes</TableCell>
+                <TableCell>Choice</TableCell>
+                <TableCell>Votes</TableCell>
                 <TableCell>to vote</TableCell>
               </TableRow>
             </TableHead>
@@ -86,10 +92,30 @@ export const QuestionDetails: React.FC = () => {
                 <TableRow key={choice}>
                   <TableCell>{choice}</TableCell>
                   <TableCell>{votes}</TableCell>
-                  <TableCell>Vote</TableCell>
+                  <TableCell>
+                    <Button>Vote</Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
+
+            <TableFooter>
+              {isLoading && (
+                <TableRow>
+                  <TableCell colSpan={3}>
+                    <LinearProgress variant="indeterminate" />
+                    Check the server...
+                    {statusServerContext.status}
+                  </TableCell>
+                </TableRow>
+              )}
+              <TableRow>
+                <TableCell colSpan={3}>
+                  {' '}
+                  Published at {choice?.published_at}
+                </TableCell>
+              </TableRow>
+            </TableFooter>
           </Table>
         </TableContainer>
       </>

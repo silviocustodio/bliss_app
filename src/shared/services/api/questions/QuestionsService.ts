@@ -13,12 +13,19 @@ export interface IListChoiceQuestion {
   choice: string;
   votes: number;
 }
+export interface ICheckStatusServer {
+  status: string;
+}
 type TListQuestion = {
   data: IListQuestion[];
   totalCount: number;
 };
 type TListDetailsQuestion = {
   data: IListQuestion;
+};
+
+type TCheckStatusServer = {
+  data: ICheckStatusServer;
 };
 
 const getAll = async (
@@ -62,23 +69,56 @@ const getById = async (id: number): Promise<TListDetailsQuestion | Error> => {
     );
   }
 };
-const getHealth = async (): Promise<any> => {
+// const getHealth = async (): Promise<any | Error> => {
+//   try {
+//     const { data } = await Api.get('/health');
+
+//     if (data) {
+//       console.log('getHealth =====> ', data);
+//       return data;
+//     }
+//     return new Error('Error getting health state');
+//   } catch (error) {
+//     console.error(error);
+//     return new Error(
+//       (error as { message: string }).message || 'Error getting health state'
+//     );
+//   }
+// };
+// const handleRefresh = async (): Promise<any> => {};
+//checking the health of the server
+// const getHealth = async  (): Promise<any | Error> =>{
+//   try {
+//     const { data } = await Api.get(
+//       'https://private-9a6a89-blissrecruitmentapi.apiary-mock.com/health'
+//     );
+
+//     if (data) {
+//       return data;
+//     }
+//   } catch (error) {
+//     console.log('There was an error in async list load service');
+//     throw error;
+//   }
+// };
+
+const getHealth = async (): Promise<TCheckStatusServer | Error> => {
   try {
     const { data } = await Api.get('/health');
 
     if (data) {
-      return data;
+      return {
+        data,
+      };
     }
-    return new Error('Error getting health state');
+    return new Error('Error getting status server');
   } catch (error) {
     console.error(error);
     return new Error(
-      (error as { message: string }).message || 'Error getting health state'
+      (error as { message: string }).message || 'Error getting status server'
     );
   }
 };
-// const handleRefresh = async (): Promise<any> => {};
-
 //updating the question votes with the answer that the user clicked
 const updateVote = async (
   id: number,

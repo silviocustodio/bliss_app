@@ -26,6 +26,10 @@ import { Environment } from '../../shared/environment';
 import Pagination from '@mui/material/Pagination';
 
 export const QuestionList: React.FC = () => {
+  interface ICheckServerContextData {
+    status: string;
+  }
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [rows, setRows] = useState<IListQuestion[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -39,6 +43,12 @@ export const QuestionList: React.FC = () => {
   const page = useMemo(() => {
     return Number(searchParams.get('page') || '1');
   }, [searchParams]);
+
+  const [statusServer, setStatusServer] = useState<ICheckServerContextData>();
+  const navigate = useNavigate();
+  const reloadPage = () => {
+    window.location.reload();
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -58,7 +68,19 @@ export const QuestionList: React.FC = () => {
     });
   }, [search, page]);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    QuestionsService.getHealth().then((result) => {
+      if (result instanceof Error) {
+        alert(result.message);
+      } else {
+        console.log('result List getHealth  ===>', result.data.status);
+
+        setStatusServer(result.data);
+        // setRows(result.data), setTotalCount(result.totalCount);
+      }
+    });
+  }, []);
+
   return (
     <BaseLayoutPage
       title="Question List"
@@ -116,7 +138,17 @@ export const QuestionList: React.FC = () => {
           )}
 
           <TableFooter>
-            {isLoading && (
+            {isLoading && statusServer?.status === 'OK' && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant="indeterminate" />
+                  <Typography>
+                    Checking Status Server: {statusServer?.status}{' '}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {!isLoading && statusServer?.status === 'NOT OK' && (
               <TableRow>
                 <TableCell colSpan={3}>
                   <LinearProgress variant="indeterminate" />
