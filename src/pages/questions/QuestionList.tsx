@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Button,
   Paper,
   TableFooter,
   LinearProgress,
@@ -16,7 +15,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToolsDetails, ToolsList } from '../../shared/components';
+import { ToolsList } from '../../shared/components';
 import { useDebounce } from '../../shared/hooks';
 import { BaseLayoutPage } from '../../shared/layout';
 import {
@@ -25,7 +24,6 @@ import {
 } from '../../shared/services/api/questions/QuestionsService';
 import { Environment } from '../../shared/environment';
 import Pagination from '@mui/material/Pagination';
-import { ErrorSharp, Share } from '@mui/icons-material';
 
 export const QuestionList: React.FC = () => {
   interface ICheckServerContextData {
@@ -34,8 +32,7 @@ export const QuestionList: React.FC = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
+
   const [rows, setRows] = useState<IListQuestion[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,9 +48,6 @@ export const QuestionList: React.FC = () => {
 
   const [statusServer, setStatusServer] = useState<ICheckServerContextData>();
   const navigate = useNavigate();
-  const reloadPage = () => {
-    window.location.reload();
-  };
 
   useEffect(() => {
     setIsLoading(true);

@@ -92,7 +92,7 @@ const share = async (
   email: string,
   offset = 10,
   search: string
-): Promise<any | Error> => {
+): Promise<TCheckStatusServer | Error> => {
   try {
     if (search) {
       const { data } = await Api.post(

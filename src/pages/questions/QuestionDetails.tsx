@@ -1,8 +1,5 @@
-import { ChatBubbleOutlineSharp } from '@mui/icons-material';
 import {
   Button,
-  Icon,
-  IconButton,
   LinearProgress,
   Paper,
   Table,
@@ -12,16 +9,13 @@ import {
   TableFooter,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToolsDetails } from '../../shared/components';
 import { CheckServerContext } from '../../shared/contexts';
-import { useDebounce } from '../../shared/hooks';
 import { BaseLayoutPage } from '../../shared/layout';
 import {
-  IListChoiceQuestion,
   IListQuestion,
   QuestionsService,
 } from '../../shared/services/api/questions/QuestionsService';
@@ -29,7 +23,6 @@ import {
 export const QuestionDetails: React.FC = () => {
   const { id = 'details' } = useParams<'id'>();
   const navigate = useNavigate();
-  const { debounce } = useDebounce(3000, true);
   const [isLoading, setIsLoading] = useState(true);
   const [choice, setChoice] = useState<IListQuestion>();
 
@@ -126,10 +119,6 @@ export const QuestionDetails: React.FC = () => {
                   {' '}
                   Published at {choice?.published_at}
                 </TableCell>
-                {/* <TableCell colSpan={3}>
-                  {' '}
-                  Published at {choice?.published_at}
-                </TableCell> */}
               </TableRow>
             </TableFooter>
           </Table>

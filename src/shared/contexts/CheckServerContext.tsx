@@ -1,8 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import {
-  ICheckStatusServer,
-  QuestionsService,
-} from '../services/api/questions/QuestionsService';
+import { QuestionsService } from '../services/api/questions/QuestionsService';
 
 interface ICheckServerContextData {
   status: string;

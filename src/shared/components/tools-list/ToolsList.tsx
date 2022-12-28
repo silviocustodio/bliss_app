@@ -1,7 +1,5 @@
 import { Paper, Box, Button, TextField, useTheme, Icon } from '@mui/material';
-import { useState } from 'react';
 import { Environment } from '../../environment';
-import * as yup from 'yup';
 interface IToolsListProps {
   searchText?: string;
   emailText?: string;
@@ -18,23 +16,15 @@ interface IToolsListProps {
   onClickInShare?: () => void;
 }
 
-const emailSchema = yup.object().shape({
-  email: yup.string().email(),
-});
-
 export const ToolsList: React.FC<IToolsListProps> = ({
   searchText = '',
   emailText = '',
   showEmailInput = '',
-  showEmailInputError = '',
   showSearchInput = false,
-  showBackListQuestions = false,
-  validateEmailText = false,
 
   changeSearchText,
   changeEmailText,
   changeSearchTextToEmpty,
-  onClickInDetails,
   onClickInShare,
 }) => {
   const theme = useTheme();

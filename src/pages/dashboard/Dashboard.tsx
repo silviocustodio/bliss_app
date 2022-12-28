@@ -1,7 +1,5 @@
 import { Box, Button, Icon, Typography } from '@mui/material';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToolsDetails } from '../../shared/components/tools-details/ToolsDetails';
 import { BaseLayoutPage } from '../../shared/layout';
 
 export const Dashboard = () => {

@@ -1,14 +1,12 @@
-import { Box, width } from '@mui/system';
+import { Box } from '@mui/system';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 import {
   Avatar,
-  CardContent,
   Divider,
   Drawer,
   Icon,
-  IconButton,
   List,
   ListItemButton,
   ListItemIcon,
