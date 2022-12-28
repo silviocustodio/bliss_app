@@ -9,7 +9,6 @@ This project was built with React
 1. git clone https://github.com/silviocustodio/bliss_app.git
 
 2. Installing Dependencies
-   Open the file bliss_app
 
 ```
   npm install or yarn install
