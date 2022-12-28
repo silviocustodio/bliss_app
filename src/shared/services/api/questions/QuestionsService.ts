@@ -91,7 +91,7 @@ const getHealth = async (): Promise<TCheckStatusServer | Error> => {
 const share = async (
   email: string,
   offset = 10,
-  search: string
+  search?: string
 ): Promise<TCheckStatusServer | Error> => {
   try {
     if (search) {

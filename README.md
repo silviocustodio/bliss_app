@@ -11,13 +11,13 @@ This project was built with React
 2. Installing Dependencies
 
 ```
-  npm install or yarn install
+  yarn install
 ```
 
 ## Run the app
 
 ```
-npm start or yarn start
+ yarn start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

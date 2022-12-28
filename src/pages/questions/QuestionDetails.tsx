@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToolsDetails } from '../../shared/components';
+import { ToolsDetails, ToolsList } from '../../shared/components';
 import { CheckServerContext } from '../../shared/contexts';
 import { BaseLayoutPage } from '../../shared/layout';
 import {
@@ -25,6 +25,7 @@ export const QuestionDetails: React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [choice, setChoice] = useState<IListQuestion>();
+  const [email, setEmail] = useState('');
 
   const statusServerContext = useContext(CheckServerContext);
 
@@ -68,14 +69,36 @@ export const QuestionDetails: React.FC = () => {
     }
   };
 
+  const shareEmail = () => {
+    try {
+      const done = QuestionsService.share(email, Number(id)).then((result) => {
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          alert('email sent');
+        }
+      });
+      console.log(done);
+    } catch (error) {
+      console.log(error);
+      console.log('Error in service.');
+    }
+  };
+
   return (
     <BaseLayoutPage
       title="Question details"
       navBar={
-        <ToolsDetails
-          showBackToListButton
-          onClickInBackToList={() => navigate('/questions')}
-        />
+        <>
+          <ToolsDetails
+            showBackToListButton
+            onClickInBackToList={() => navigate('/questions')}
+            emailText={email}
+            onClickInShare={() => shareEmail()}
+            showEmailInput
+            changeEmailText={(text) => setEmail(text)}
+          />
+        </>
       }
     >
       <>

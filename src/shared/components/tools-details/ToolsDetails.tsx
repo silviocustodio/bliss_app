@@ -6,11 +6,15 @@ import {
   Icon,
   Skeleton,
   Typography,
+  TextField,
 } from '@mui/material';
+import { Environment } from '../../environment';
 
 interface IToolsDetailsProps {
   textDismissButton?: string;
   textBackToListButton?: string;
+  emailText?: string;
+  showEmailInput?: boolean;
 
   showTextDismissButton?: boolean;
   showTextDismissButtonLoading?: boolean;
@@ -18,6 +22,8 @@ interface IToolsDetailsProps {
 
   onClickInDismiss?: () => void;
   onClickInBackToList?: () => void;
+  onClickInShare?: () => void;
+  changeEmailText?: (newText: string) => void;
 }
 
 export const ToolsDetails: React.FC<IToolsDetailsProps> = ({
@@ -27,8 +33,13 @@ export const ToolsDetails: React.FC<IToolsDetailsProps> = ({
   showBackToListButton = false,
   showTextDismissButtonLoading = false,
 
+  emailText = '',
+  showEmailInput = '',
+
   onClickInDismiss,
   onClickInBackToList,
+  changeEmailText,
+  onClickInShare,
 }) => {
   const theme = useTheme();
   return (
@@ -80,6 +91,32 @@ export const ToolsDetails: React.FC<IToolsDetailsProps> = ({
             {textBackToListButton}
           </Typography>
         </Button>
+      )}
+
+      {showEmailInput && (
+        <>
+          <Box flex={1} display="flex" justifyContent="end" gap={1}>
+            <TextField
+              size="small"
+              placeholder={Environment.EMAIL_INPUT}
+              value={emailText}
+              onChange={(e) => changeEmailText?.(e.target.value)}
+              type="email"
+              label="email"
+              variant="outlined"
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              disableElevation
+              startIcon={<Icon>email</Icon>}
+              onClick={() => onClickInShare?.()}
+            >
+              Share
+              {}
+            </Button>
+          </Box>
+        </>
       )}
     </Box>
   );
