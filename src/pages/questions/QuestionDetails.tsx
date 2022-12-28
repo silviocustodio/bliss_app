@@ -35,34 +35,46 @@ export const QuestionDetails: React.FC = () => {
 
   const statusServerContext = useContext(CheckServerContext);
 
-  //   const handleDetails = (id: number) => {
-  //     console.log();
-
-  //     QuestionsService.getById(id).then((result) => {
-  //       if (result instanceof Error) {
-  //         alert(result.message);
-  //       } else {
-  //         console.log('result byID ====> ', result);
-
-  //       }
-  //     });
-  //   };
-
   useEffect(() => {
     setIsLoading(true);
-    console.log('result setChoice before ====> ', choice);
     if (id !== 'details') {
-      QuestionsService.getById(Number(id)).then((result) => {
-        setIsLoading(false);
-        if (result instanceof Error) {
-          alert(result.message);
-        } else {
-          setChoice(result.data);
-        }
-      });
+      update(Number(id));
     }
   }, [id]);
-  console.log('result setChoice after ====> ', choice);
+
+  const update = (id: number) => {
+    QuestionsService.getById(Number(id)).then((result) => {
+      setIsLoading(false);
+      if (result instanceof Error) {
+        alert(result.message);
+      } else {
+        setChoice(result.data);
+      }
+    });
+  };
+
+  const updateVoteValue = (idChoice: number) => {
+    if (choice) {
+      choice.choices[idChoice].votes++;
+
+      const body = JSON.stringify(choice);
+      try {
+        const done = QuestionsService.updateVote(id, body).then((result) => {
+          if (result instanceof Error) {
+            alert(result.message);
+          } else {
+            update(Number(id));
+            alert('Your vote has been sent successfully');
+          }
+        });
+        console.log(done);
+      } catch (error) {
+        console.log(error);
+        console.log('Error in service.');
+      }
+    }
+  };
+
   return (
     <BaseLayoutPage
       title="Question details"
@@ -88,12 +100,12 @@ export const QuestionDetails: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {choice?.choices.map(({ choice, votes }) => (
+              {choice?.choices.map(({ choice, votes }, index) => (
                 <TableRow key={choice}>
                   <TableCell>{choice}</TableCell>
                   <TableCell>{votes}</TableCell>
                   <TableCell>
-                    <Button>Vote</Button>
+                    <Button onClick={() => updateVoteValue(index)}>Vote</Button>
                   </TableCell>
                 </TableRow>
               ))}

@@ -24,6 +24,7 @@ import {
 } from '../../shared/services/api/questions/QuestionsService';
 import { Environment } from '../../shared/environment';
 import Pagination from '@mui/material/Pagination';
+import { ErrorSharp, Share } from '@mui/icons-material';
 
 export const QuestionList: React.FC = () => {
   interface ICheckServerContextData {
@@ -31,12 +32,17 @@ export const QuestionList: React.FC = () => {
   }
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
   const [rows, setRows] = useState<IListQuestion[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { debounce } = useDebounce(3000, true);
 
   const search = useMemo(() => {
+    // console.log('searchParams===>>', searchParams.get('search') || '');
+
     return searchParams.get('search') || '';
   }, [searchParams]);
 
@@ -81,6 +87,26 @@ export const QuestionList: React.FC = () => {
     });
   }, []);
 
+  const shareEmail = () => {
+    try {
+      const done = QuestionsService.share(email, page, search).then(
+        (result) => {
+          if (result instanceof Error) {
+            alert(result.message);
+          } else {
+            // console.log('email sent', result);
+
+            alert('email sent');
+          }
+        }
+      );
+      console.log(done);
+    } catch (error) {
+      console.log(error);
+      console.log('Error in service.');
+    }
+  };
+
   return (
     <BaseLayoutPage
       title="Question List"
@@ -89,11 +115,16 @@ export const QuestionList: React.FC = () => {
         <ToolsList
           showSearchInput
           searchText={search}
+          emailText={email}
           onClickInDetails={() => navigate('/question/details')}
+          onClickInShare={() => shareEmail()}
           changeSearchText={(text) =>
             setSearchParams({ search: text, page: '1' }, { replace: true })
           }
           changeSearchTextToEmpty={() => setSearchParams({ search: '' })}
+          showEmailInput
+          changeEmailText={(text) => setEmail(text)}
+          // validateEmailText={emailValid}
         />
       }
     >
@@ -125,6 +156,8 @@ export const QuestionList: React.FC = () => {
                   {/* <IconButton onClick={() => handleDetails(row.id)}> */}
                   <IconButton
                     onClick={() => navigate(`/questions/details/${row.id}`)}
+                    // variant="contained"
+                    color="primary"
                   >
                     <Icon>loupe</Icon>
                     <Typography>Details </Typography>

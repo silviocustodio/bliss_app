@@ -8,11 +8,11 @@ export const AppRoutes = () => {
 
   useEffect(() => {
     setDrawerOptions([
-      {
-        label: 'Home',
-        icon: 'home',
-        path: '/home',
-      },
+      // {
+      //   label: 'Home',
+      //   icon: 'home',
+      //   path: '/home',
+      // },
       {
         label: 'Questions',
         icon: 'quiz',
@@ -28,7 +28,7 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/home" element={<Dashboard />} />
+      {/* <Route path="/home" element={<Dashboard />} /> */}
       <Route path="/questions" element={<QuestionList />} />
       <Route path="/questions/details/:id" element={<QuestionDetails />} />
       <Route path="*" element={<Navigate to="/home" />} />

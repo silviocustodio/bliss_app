@@ -127,8 +127,8 @@ const share = async (
 ): Promise<any | Error> => {
   try {
     if (search) {
-      const { data } = await Api.get(
-        `/share?destination_email=${email}&content_url=http://localhost:3000/questions?${search}&limit=10&offset=${offset}`
+      const { data } = await Api.post(
+        `/share?destination_email=${email}&content_url=http://localhost:3000/questions?search=${search}&offset=${offset}`
       );
 
       if (data) {
@@ -137,7 +137,7 @@ const share = async (
         };
       }
     } else {
-      const { data } = await Api.get(
+      const { data } = await Api.post(
         `/share?destination_email=${email}&content_url=http://localhost:3000/questions?limit=10&offset=${offset}`
       );
 
@@ -156,8 +156,8 @@ const share = async (
   }
 }; //updating the question votes with the answer that the user clicked
 const updateVote = async (
-  id: number,
-  dataQuestion: IListQuestion
+  id: string,
+  dataQuestion: string
 ): Promise<void | Error> => {
   try {
     await Api.put(`/questions/${id}`, dataQuestion);
@@ -173,6 +173,7 @@ export const QuestionsService = {
   getAll,
   getById,
   // handleRefresh,
+  share,
   getHealth,
   updateVote,
 };

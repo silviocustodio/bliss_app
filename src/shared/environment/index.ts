@@ -12,6 +12,10 @@ export const Environment = {
    * Define the search text by default
    */
   SEARCH_INPUT: 'Search...',
+  /**
+   * Define the email text by default
+   */
+  EMAIL_INPUT: 'Email...',
 
   /**
    * Define the default text when the list return empty
