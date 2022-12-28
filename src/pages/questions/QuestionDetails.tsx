@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToolsDetails, ToolsList } from '../../shared/components';
+import { ToolsDetails } from '../../shared/components';
 import { CheckServerContext } from '../../shared/contexts';
 import { BaseLayoutPage } from '../../shared/layout';
 import {
