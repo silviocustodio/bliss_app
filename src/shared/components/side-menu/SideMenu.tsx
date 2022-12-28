@@ -4,16 +4,21 @@ import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 import {
   Avatar,
+  CardContent,
   Divider,
   Drawer,
   Icon,
+  IconButton,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+
+import { GitHub, LinkedIn } from '@mui/icons-material';
 
 interface ISideMenuProps {
   children: React.ReactNode;
@@ -30,7 +35,6 @@ export const SideMenu: React.FC<ISideMenuProps> = ({ children }) => {
     icon: string;
     label: string;
     onClick: (() => void) | undefined;
-    // children: React.ReactNode;
   }
 
   const ListItemLink: React.FC<IListItemLinkProps> = ({
@@ -75,19 +79,55 @@ export const SideMenu: React.FC<ISideMenuProps> = ({ children }) => {
         >
           <Box
             width="100%"
-            height={theme.spacing(20)}
+            height={theme.spacing(31)}
             display="flex"
             alignItems="center"
             justifyContent="center"
+            flexDirection="column"
           >
             <Avatar
               sx={{
                 height: theme.spacing(12),
                 width: theme.spacing(12),
               }}
-              src="https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png"
+              src="https://avatars.githubusercontent.com/u/16634078?v=4"
             />
+            <Box
+              width="100%"
+              height={theme.spacing(10)}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexDirection="column"
+            >
+              <Typography variant="subtitle2" align="center">
+                Silvio Custodio
+              </Typography>
+
+              <Box
+                width="100%"
+                height={theme.spacing(4)}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="row"
+                gap={1}
+              >
+                <LinkedIn
+                  color="secondary"
+                  onClick={() =>
+                    window.open('https://www.linkedin.com/in/silviocustodio/')
+                  }
+                />
+                <GitHub
+                  onClick={() =>
+                    window.open('https://www.github.com/silviocustodio')
+                  }
+                />
+              </Box>
+            </Box>
           </Box>
+
           <Divider />
 
           <Box flex={1}>
@@ -121,73 +161,3 @@ export const SideMenu: React.FC<ISideMenuProps> = ({ children }) => {
     </>
   );
 };
-// import {
-//   Avatar,
-//   Divider,
-//   Drawer,
-//   Icon,
-//   List,
-//   ListItemButton,
-//   ListItemIcon,
-//   ListItemText,
-//   useMediaQuery,
-//   useTheme,
-// } from '@mui/material';
-
-// import { Box, width } from '@mui/system';
-// interface ISideMenuProps {
-//   children: React.ReactNode;
-// }
-// export const SideMenu: React.FC<ISideMenuProps> = ({ children }) => {
-//   const theme = useTheme();
-//   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-//   return (
-//     <>
-//       <Drawer open={true} variant={smDown ? 'temporary' : 'permanent'}>
-//         <Box
-//           width={theme.spacing(28)}
-//           height="100%"
-//           display="flex"
-//           flexDirection="column"
-//         >
-//           <Box
-//             width="100%"
-//             height={theme.spacing(20)}
-//             display="flex"
-//             alignItems="center"
-//             justifyContent="center"
-//           >
-//             <Avatar
-//               sx={{
-//                 height: theme.spacing(12),
-//                 width: theme.spacing(12),
-//               }}
-//               src="https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png"
-//             />
-//           </Box>
-//           <Divider />
-//           <Box flex={1}>
-//             <List component="nav">
-//               {/* <ListItemLink
-//                 icon="home"
-//                 to="/start-page"
-//                 label="Home page"
-//                 onClick={smDown ? toggleDrawerOpen : undefined}
-//               /> */}
-//               <ListItemButton>
-//                 <ListItemIcon>
-//                   <Icon>home</Icon>
-//                 </ListItemIcon>
-//                 <ListItemText primary="Home" />
-//               </ListItemButton>
-//             </List>
-//           </Box>
-//         </Box>
-//       </Drawer>
-//       ;
-//       <Box height="100vh" marginLeft={smDown ? 0 : theme.spacing(28)}>
-//         {children}
-//       </Box>
-//     </>
-//   );
-// };

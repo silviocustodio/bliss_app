@@ -13,6 +13,7 @@ import {
   IconButton,
   Icon,
   Typography,
+  Tooltip,
 } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolsDetails, ToolsList } from '../../shared/components';
@@ -41,8 +42,6 @@ export const QuestionList: React.FC = () => {
   const { debounce } = useDebounce(3000, true);
 
   const search = useMemo(() => {
-    // console.log('searchParams===>>', searchParams.get('search') || '');
-
     return searchParams.get('search') || '';
   }, [searchParams]);
 
@@ -64,10 +63,6 @@ export const QuestionList: React.FC = () => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
-          console.log(result);
-
-          console.log('result.totalCount ===>', result.totalCount);
-
           setRows(result.data), setTotalCount(result.totalCount);
         }
       });
@@ -79,10 +74,7 @@ export const QuestionList: React.FC = () => {
       if (result instanceof Error) {
         alert(result.message);
       } else {
-        console.log('result List getHealth  ===>', result.data.status);
-
         setStatusServer(result.data);
-        // setRows(result.data), setTotalCount(result.totalCount);
       }
     });
   }, []);
@@ -94,8 +86,6 @@ export const QuestionList: React.FC = () => {
           if (result instanceof Error) {
             alert(result.message);
           } else {
-            // console.log('email sent', result);
-
             alert('email sent');
           }
         }
@@ -110,7 +100,6 @@ export const QuestionList: React.FC = () => {
   return (
     <BaseLayoutPage
       title="Question List"
-      //   navBar={<ToolsList showSearchInput={false} showBackListQuestions />}
       navBar={
         <ToolsList
           showSearchInput
@@ -124,7 +113,6 @@ export const QuestionList: React.FC = () => {
           changeSearchTextToEmpty={() => setSearchParams({ search: '' })}
           showEmailInput
           changeEmailText={(text) => setEmail(text)}
-          // validateEmailText={emailValid}
         />
       }
     >
@@ -152,16 +140,14 @@ export const QuestionList: React.FC = () => {
                   {row.id} - {row.question}
                 </TableCell>
                 <TableCell>
-                  {/* <Button>Details</Button> */}
-                  {/* <IconButton onClick={() => handleDetails(row.id)}> */}
-                  <IconButton
-                    onClick={() => navigate(`/questions/details/${row.id}`)}
-                    // variant="contained"
-                    color="primary"
-                  >
-                    <Icon>loupe</Icon>
-                    <Typography>Details </Typography>
-                  </IconButton>
+                  <Tooltip title="Details">
+                    <IconButton
+                      onClick={() => navigate(`/questions/details/${row.id}`)}
+                      color="primary"
+                    >
+                      <Icon>loupe</Icon>
+                    </IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
@@ -210,6 +196,4 @@ export const QuestionList: React.FC = () => {
       </TableContainer>
     </BaseLayoutPage>
   );
-
-  //   <BaseLayoutPage title="Question section" navBar={<ToolsDetails />}></BaseLayoutPage>);
 };

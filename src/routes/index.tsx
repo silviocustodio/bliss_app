@@ -8,30 +8,19 @@ export const AppRoutes = () => {
 
   useEffect(() => {
     setDrawerOptions([
-      // {
-      //   label: 'Home',
-      //   icon: 'home',
-      //   path: '/home',
-      // },
       {
         label: 'Questions',
         icon: 'quiz',
         path: '/questions',
       },
-      // {
-      //   label: 'Questions Details',
-      //   icon: 'quiz',
-      //   path: '/questions/details:id',
-      // },
     ]);
   }, []);
 
   return (
     <Routes>
-      {/* <Route path="/home" element={<Dashboard />} /> */}
       <Route path="/questions" element={<QuestionList />} />
       <Route path="/questions/details/:id" element={<QuestionDetails />} />
-      <Route path="*" element={<Navigate to="/home" />} />
+      <Route path="*" element={<Navigate to="/questions" />} />
     </Routes>
   );
 };

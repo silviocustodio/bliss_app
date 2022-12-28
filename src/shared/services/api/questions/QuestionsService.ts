@@ -69,38 +69,6 @@ const getById = async (id: number): Promise<TListDetailsQuestion | Error> => {
     );
   }
 };
-// const getHealth = async (): Promise<any | Error> => {
-//   try {
-//     const { data } = await Api.get('/health');
-
-//     if (data) {
-//       console.log('getHealth =====> ', data);
-//       return data;
-//     }
-//     return new Error('Error getting health state');
-//   } catch (error) {
-//     console.error(error);
-//     return new Error(
-//       (error as { message: string }).message || 'Error getting health state'
-//     );
-//   }
-// };
-// const handleRefresh = async (): Promise<any> => {};
-//checking the health of the server
-// const getHealth = async  (): Promise<any | Error> =>{
-//   try {
-//     const { data } = await Api.get(
-//       'https://private-9a6a89-blissrecruitmentapi.apiary-mock.com/health'
-//     );
-
-//     if (data) {
-//       return data;
-//     }
-//   } catch (error) {
-//     console.log('There was an error in async list load service');
-//     throw error;
-//   }
-// };
 
 const getHealth = async (): Promise<TCheckStatusServer | Error> => {
   try {
@@ -172,7 +140,6 @@ const updateVote = async (
 export const QuestionsService = {
   getAll,
   getById,
-  // handleRefresh,
   share,
   getHealth,
   updateVote,

@@ -22,7 +22,6 @@ const emailSchema = yup.object().shape({
   email: yup.string().email(),
 });
 
-// const [input, setInput] = useState('');
 export const ToolsList: React.FC<IToolsListProps> = ({
   searchText = '',
   emailText = '',
@@ -39,33 +38,6 @@ export const ToolsList: React.FC<IToolsListProps> = ({
   onClickInShare,
 }) => {
   const theme = useTheme();
-  // const [emailValid, setEmailValid] = useState(false);
-
-  // const handleSubmit = () => {
-  //   emailSchema
-  //     .isValid({
-  //       email: emailText,
-  //     })
-  //     .then((valid) => {
-  //       if (valid) {
-  //         console.log('validar email', valid);
-  //         setEmailValid(valid);
-  //       } else {
-  //         setEmailValid(valid);
-  //       }
-  //     });
-  // };
-  // .catch((errors: yup.ValidationError) => {
-  //   errors.inner.forEach((error) => {
-  //     console.log('validar email', error);
-  //     if (error.path === 'email') {
-  //       // setEmailError(error.message);
-
-  //       console.log('Invalid email');
-  //     }
-  //   });
-  // });
-  // };
 
   return (
     <Box
@@ -104,7 +76,7 @@ export const ToolsList: React.FC<IToolsListProps> = ({
       )}
       {showEmailInput && (
         <>
-          <Box flex={1} display="flex" justifyContent="end">
+          <Box flex={1} display="flex" justifyContent="end" gap={1}>
             <TextField
               size="small"
               placeholder={Environment.EMAIL_INPUT}
@@ -113,7 +85,6 @@ export const ToolsList: React.FC<IToolsListProps> = ({
               type="email"
               label="email"
               variant="outlined"
-              // error={emailValid}
             />
             <Button
               variant="contained"
@@ -128,18 +99,6 @@ export const ToolsList: React.FC<IToolsListProps> = ({
           </Box>
         </>
       )}
-      {/* {!showSearchInput && showBackListQuestions && (
-        <Box flex={1} display="flex" justifyContent="start">
-          <Button
-            variant="contained"
-            color="primary"
-            disableElevation
-            startIcon={<Icon>arrow_back</Icon>}
-          >
-            Back to List
-          </Button>
-        </Box>
-      )} */}
     </Box>
   );
 };
